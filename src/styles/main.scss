@@ -1,0 +1,21 @@
+// src/styles/styles.scss
+
+// Import and forward the base styles
+@use './_index' as *;
+
+// Forward component-specific and layout-specific styles
+@forward './components';
+@forward './layouts';
+
+// Custom global styles (optional)
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: $background-color; // Global variable usage
+}
+
+.app-container {
+  background-color: $light-gray;
+  padding: 20px;
+}

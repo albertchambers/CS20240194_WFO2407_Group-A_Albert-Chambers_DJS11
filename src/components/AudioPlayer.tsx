@@ -1,5 +1,4 @@
 import React, { useRef, useState } from 'react';
-import './AudioPlayer.scss'; // Import SCSS file for styling
 
 type AudioPlayerProps = {
   src: string; // Audio file URL

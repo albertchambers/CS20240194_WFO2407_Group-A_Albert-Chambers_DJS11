@@ -1,0 +1,31 @@
+/* Reusable mixins for common tasks */
+
+/* Flexbox center alignment */
+@mixin center-flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Responsive media queries */
+@mixin media-query($max-width) {
+  @media (max-width: $max-width) {
+    @content;
+  }
+}
+
+// src/styles/base/_mixins.scss
+
+@mixin container($max-width: 1200px) {
+  width: 100%;
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+@mixin flex-center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+

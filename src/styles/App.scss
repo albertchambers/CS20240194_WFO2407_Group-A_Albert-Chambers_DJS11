@@ -1,0 +1,30 @@
+@use './base/reset' as *;
+@use './base/variables' as *;
+@use './base/mixins' as *;
+@use './components/showCard' as showCard;
+@use './components/audioPlayer' as audioPlayer;
+@use './components/genreFilter' as genreFilter;
+@use './layouts/header' as header;
+@use './layouts/footer' as footer;
+
+/* App-specific styles */
+.app-container {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 30px;
+  background-color: white;
+}
+
+header {
+  @include header.header;
+}
+
+footer {
+  @include footer.footer;
+}
+
+.main-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}

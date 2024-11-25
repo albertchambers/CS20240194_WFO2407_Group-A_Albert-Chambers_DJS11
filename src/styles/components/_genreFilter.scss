@@ -1,0 +1,21 @@
+.genre-filter {
+  margin: 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  label {
+    font-size: $font-size-large;
+    margin-bottom: 10px;
+    color: $dark-gray;
+  }
+
+  select {
+    padding: 10px;
+    font-size: $font-size-base;
+    border-radius: $border-radius;
+    border: 1px solid $light-gray;
+    background-color: white;
+    cursor: pointer;
+  }
+}

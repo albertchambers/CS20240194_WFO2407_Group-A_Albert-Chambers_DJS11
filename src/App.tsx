@@ -3,7 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 
 import viteLogo from '/vite.svg'
-import './App.css'
+import './styles/App.scss'
 
 const App: React.FC = () => {
   return (
