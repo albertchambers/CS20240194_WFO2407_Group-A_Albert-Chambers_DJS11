@@ -1,11 +1,11 @@
 @use '../base/variables' as *;
 
-.header {
-  background-color: $primary-color;
+@mixin header {
+  background-color: primary-color;
   padding: 20px;
   color: white;
   text-align: center;
-  font-size: $font-size-xlarge;
+  font-size: font-size-xlarge;
 
   .logo {
     font-weight: bold;
@@ -17,7 +17,7 @@
 
     a {
       color: white;
-      font-size: $font-size-base;
+      font-size: font-size-base;
       margin: 0 15px;
     }
   }

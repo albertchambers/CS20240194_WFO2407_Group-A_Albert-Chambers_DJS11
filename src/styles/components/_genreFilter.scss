@@ -5,17 +5,21 @@
   align-items: flex-start;
 
   label {
-    font-size: $font-size-large;
+    font-size: large;
     margin-bottom: 10px;
-    color: $dark-gray;
+    color: dark-gray;
   }
 
   select {
     padding: 10px;
-    font-size: $font-size-base;
-    border-radius: $border-radius;
-    border: 1px solid $light-gray;
+    font-size: font-size-base;
+    border-radius: border-radius;
+    border: 1px solid light-gray;
     background-color: white;
     cursor: pointer;
-  }
+    -webkit-border-radius: border-radius;
+    -moz-border-radius: border-radius;
+    -ms-border-radius: border-radius;
+    -o-border-radius: border-radius;
+}
 }

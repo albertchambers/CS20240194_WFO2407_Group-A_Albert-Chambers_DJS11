@@ -4,18 +4,22 @@
 @use './_index' as *;
 
 // Forward component-specific and layout-specific styles
-@forward './components';
-@forward './layouts';
+@forward './components/audioPlayer';
+@forward './components/genreFilter';
+@forward './components/showCard';
+
+@forward './layouts/footer';
+@forward './layouts/header';
 
 // Custom global styles (optional)
 body {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: $background-color; // Global variable usage
+  background-color: background-color; // Global variable usage
 }
 
 .app-container {
-  background-color: $light-gray;
+  background-color: light-gray;
   padding: 20px;
 }

@@ -1,24 +1,32 @@
 @use '../base/variables' as *;
 
-.header {
-  background-color: $primary-color;
-  padding: 20px;
-  color: white;
+// layouts/_footer.scss
+
+// Mixin for the footer
+@mixin footer($background-color: #333, $padding: 20px, $text-color: white, $font-size: 1rem) {
+  background-color: $background-color;
+  padding: $padding;
+  color: $text-color;
+  font-size: $font-size;
   text-align: center;
-  font-size: $font-size-xlarge;
+  position: relative;
+  bottom: 0;
+  width: 100%;
 
-  .logo {
-    font-weight: bold;
-    font-size: 1.5rem;
-  }
-
-  nav {
-    margin-top: 10px;
-
-    a {
-      color: white;
-      font-size: $font-size-base;
-      margin: 0 15px;
+  // Optional: add any specific footer styles here, e.g., links or responsive styles
+  a {
+    color: $text-color;
+    text-decoration: none;
+    padding: 5px;
+    &:hover {
+      text-decoration: underline;
     }
   }
+
+  // Optional: Add responsive behavior for mobile
+  @media (max-width: 768px) {
+    font-size: 0.9rem;
+    padding: 15px;
+  }
 }
+
