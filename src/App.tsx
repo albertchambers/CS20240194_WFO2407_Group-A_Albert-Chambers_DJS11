@@ -17,6 +17,7 @@ const App: React.FC = () => {
         <Route path="/" element={<HomePage />} />
         {/* Add more routes here */}
       </Routes>
+      
     </>
   )
 }

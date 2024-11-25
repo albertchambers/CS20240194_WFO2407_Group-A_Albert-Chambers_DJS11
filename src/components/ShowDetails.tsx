@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react';
+
 const ShowDetails = ({ showId, onBack }) => {
   const [showDetails, setShowDetails] = useState(null);
   const [loading, setLoading] = useState(true);
