@@ -1,30 +1,75 @@
-@use './base/reset' as *;
-@use './base/variables' as *;
-@use './base/mixins' as *;
-@use './components/showCard' as showCard;
-@use './components/audioPlayer' as audioPlayer;
-@use './components/genreFilter' as genreFilter;
-@use './layouts/header' as header;
-@use './layouts/footer' as footer;
+@use './_index';
 
-/* App-specific styles */
-.app-container {
-  max-width: max-width;
-  margin: 0 auto;
-  padding: 30px;
-  background-color: white;
-}
-
-header {
-  @include header.header;
-}
-
-footer {
-  @include footer.footer;
-}
-
+// Local styles for the App
 .main-content {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+}
+
+.app-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.loading,
+.error {
+  text-align: center;
+  font-size: 18px;
+  color: #333;
+}
+
+.podcast-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+}
+
+.podcast-card {
+  position: relative;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.2s ease;
+  &:hover {
+    transform: scale(1.02);
+  }
+}
+
+.podcast-image {
+  width: 100%;
+  height: auto;
+}
+
+.podcast-info {
+  padding: 10px;
+}
+
+.hovercard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  &:hover {
+    opacity: 1;
+  }
+}
+
+// Mixins for header and footer
+header {
+  @include header;
+}
+
+footer {
+  @include footer;
 }

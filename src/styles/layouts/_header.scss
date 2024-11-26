@@ -1,11 +1,13 @@
+// src/styles/layouts/_header.scss
+
 @use '../base/variables' as *;
 
-@mixin header {
-  background-color: primary-color;
+@mixin header {  // Removed the period here
+  background-color: $primary-color;  // Use Sass variable syntax with $
   padding: 20px;
   color: white;
   text-align: center;
-  font-size: font-size-xlarge;
+  font-size: $font-size-xlarge;  // Use Sass variable syntax with $
 
   .logo {
     font-weight: bold;
@@ -17,7 +19,7 @@
 
     a {
       color: white;
-      font-size: font-size-base;
+      font-size: $font-size-base;  // Use Sass variable syntax with $
       margin: 0 15px;
     }
   }

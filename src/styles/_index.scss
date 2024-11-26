@@ -1,3 +1,14 @@
+// src/styles/_index.scss
+
+@forward './base/variables';  // Make sure _variables.scss is forwarded
 @forward './base/reset';
-@forward './base/variables';
 @forward './base/mixins';
+
+// Grouped components
+@forward './components/showCard';
+@forward './components/audioPlayer';
+@forward './components/genreFilter';
+
+// Layout modules
+@forward './layouts/header';
+@forward './layouts/footer';

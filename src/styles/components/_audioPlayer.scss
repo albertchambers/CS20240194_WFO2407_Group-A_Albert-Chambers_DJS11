@@ -1,7 +1,9 @@
-@use '../base/variables' as *;
-@use '../base/mixins' as *;
+/* src/styles/components/_audioPlayer.scss */
 
-/* Styles for the audio player */
+@use '../base/mixins' as *;
+@use '../base/variables' as *;
+
+/* Remove the redundant @use */
 .audio-player {
   @include center-flex;
   flex-direction: column;
