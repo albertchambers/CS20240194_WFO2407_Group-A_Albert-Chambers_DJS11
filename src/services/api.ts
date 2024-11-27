@@ -1,4 +1,4 @@
-import { Show, Season, Episode } from '../types'; // Adjust the path as needed
+import { Show, Season, Episode } from '../interface/types'; // Adjust the path as needed
 
 export const fetchShowDetails = async (id: string): Promise<Show> => {
   const response = await fetch(`https://podcast-api.netlify.app/id/${id}`);

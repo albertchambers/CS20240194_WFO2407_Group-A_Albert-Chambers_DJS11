@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Show } from '../types'; // Adjust the path as needed
+import { Show } from '../interface/types'; // Adjust the path as needed
 
 function ShowDetails() {
   const [show, setShow] = useState<Show | null>(null);
