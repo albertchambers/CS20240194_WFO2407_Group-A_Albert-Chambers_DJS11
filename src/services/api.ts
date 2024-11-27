@@ -1,34 +1,43 @@
-const API_BASE_URL = 'https://podcast-api.netlify.app';
+const BASE_URL = 'https://podcast-api.netlify.app';
 
-export const fetchShows = async () => {
+/**
+ * Reusable fetch wrapper for API requests
+ * @param endpoint API endpoint
+ * @returns JSON response
+ */
+const fetchApi = async (endpoint: string) => {
   try {
-    const response = await fetch(`${API_BASE_URL}`);
-    if (!response.ok) throw new Error('Failed to fetch shows');
+    const response = await fetch(`${BASE_URL}/${endpoint}`);
+    if (!response.ok) {
+      throw new Error(`API Error: ${response.status} ${response.statusText}`);
+    }
     return await response.json();
   } catch (error) {
-    console.error(error);
+    console.error(`Error fetching ${endpoint}:`, error);
     throw error;
   }
 };
 
-export const fetchShowById = async (id: string) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/id/${id}`);
-    if (!response.ok) throw new Error('Failed to fetch show details');
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-};
+export const fetchPreviews = async () => fetchApi('shows');
 
-export const fetchGenreById = async (id: string) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/genre/${id}`);
-    if (!response.ok) throw new Error('Failed to fetch genre');
-    return await response.json();
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
+export const fetchShow = async (showId: string) => {
+  const data = await fetchApi(`id/${showId}`);
+  return {
+    id: data.id,
+    title: data.title,
+    description: data.description,
+    image: data.image,
+    seasons: data.seasons.map((season: any, seasonIndex: number) => ({
+      number: seasonIndex + 1,
+      title: season.title,
+      image: season.image,
+      episodes: season.episodes.map((episode: any, episodeIndex: number) => ({
+        id: episodeIndex + 1,
+        title: episode.title,
+        description: episode.description,
+        duration: episode.duration,
+        audioSrc: episode.file,
+      })),
+    })),
+  };
 };

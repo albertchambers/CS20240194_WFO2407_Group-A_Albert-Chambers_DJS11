@@ -1,55 +1,53 @@
-import React, { useEffect, useState } from 'react';
-import { fetchShows } from '../services/api';
-import ShowCard from '../components/ShowCard';
-import GenreFilter from '../components/GenreFilter';
+import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
+
 import AudioPlayer from '../components/AudioPlayer';
 
-const HomePage: React.FC = () => {
-  const [shows, setShows] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
-  const [selectedGenre, setSelectedGenre] = useState<string>('');
+function About() {
+  const [podcasts, setPodcasts] = useState<any[]>([]); // Type added for clarity, replace 'any' with a more specific type
 
   useEffect(() => {
-    const loadShows = async () => {
-      try {
-        const data = await fetchShows();
-        setShows(data);
-      } catch (err) {
-        setError((err as Error).message);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadShows();
+    fetch('https://podcast-api.netlify.app')
+      .then((response) => response.json())
+      .then((data) => {
+        setPodcasts(data);
+      })
+      .catch((error) => {
+        console.error('Error fetching podcast data:', error);
+      });
   }, []);
 
-  const filteredShows = selectedGenre
-    ? shows.filter(show => show.genres.includes(Number(selectedGenre)))
-    : shows;
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error: {error}</p>;
-
   return (
-    <div className="homepage">
-      <GenreFilter
-        genres={[{ id: '1', title: 'Genre 1' }, { id: '2', title: 'Genre 2' }]}
-        selectedGenre={selectedGenre}
-        onGenreChange={setSelectedGenre}
-      />
-      <AudioPlayer
-        trackUrl="https://example.com/sample.mp3"
-        title="Sample Podcast"
-        artist="Podcast Artist"
-      />
-      <div className="show-list">
-        {filteredShows.map(show => (
-          <ShowCard key={show.id} show={show} />
-        ))}
-      </div>
+    <div className="HomePage">
+      <h1>About</h1>
+      {podcasts.length > 0 ? (
+        <div className="podcast-grid">
+          {podcasts.map((podcast, index) => (
+            <div key={index} className="podcast-card">
+              <img
+                src={podcast.image}
+                alt={podcast.title}
+                className="podcast-image"
+              />
+              <p>
+                <Link to={`/show/${podcast.id}`} className="podcast-title">
+                  {podcast.title}
+                </Link>
+              </p>
+              {/* Wrap the AudioPlayer in the same div */}
+              <AudioPlayer
+                trackUrl="https://example.com/sample.mp3"
+                title="Sample Podcast"
+                artist="Podcast Artist"
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        <p>Loading podcast titles...</p>
+      )}
     </div>
   );
-};
+}
 
-export default HomePage;
+export default About;
