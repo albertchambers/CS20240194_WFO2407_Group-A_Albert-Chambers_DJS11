@@ -5,8 +5,8 @@ export interface Episode {
   title: string;
   description: string;
   duration: number;
-  audioSrc: string; // Keep this for your mapped structure
-  file?: string;    // Optional property if it's sometimes undefined in API
+  audioSrc: string;
+  file?: string;
 }
 
 

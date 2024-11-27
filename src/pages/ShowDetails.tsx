@@ -2,6 +2,28 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { Show } from '../interface/types'; // Adjust the path as needed
 
+// Utility to sanitize URLs
+function sanitizeUrl(url: string): string {
+  try {
+    const sanitizedUrl = new URL(url);
+
+    // Allow only secure protocols and trusted domains
+    const trustedDomains = ['podcast-api.netlify.app'];
+    if (
+      sanitizedUrl.protocol !== 'https:' ||
+      !trustedDomains.some((domain) => sanitizedUrl.hostname.endsWith(domain))
+    ) {
+      console.warn(`Blocked URL: ${url}`);
+      return '';
+    }
+
+    return sanitizedUrl.href;
+  } catch {
+    console.warn('Invalid URL:', url);
+    return ''; // Return an empty string if URL parsing fails
+  }
+}
+
 function ShowDetails() {
   const [show, setShow] = useState<Show | null>(null);
   const { id } = useParams<{ id: string }>();
@@ -28,14 +50,18 @@ function ShowDetails() {
         <>
           <h1>{show.title}</h1>
           <p>{show.description}</p>
-          <img src={show.image} alt={show.title} className="show-image" />
+          <img
+            src={sanitizeUrl(show.image)}
+            alt={show.title}
+            className="show-image"
+          />
           <div className="seasons">
             {show.seasons && show.seasons.length > 0 ? (
               show.seasons.map((season) => (
                 <div key={season.number} className="season">
                   <h2>{season.title}</h2>
                   <img
-                    src={season.image}
+                    src={sanitizeUrl(season.image)}
                     alt={season.title}
                     className="season-image"
                   />
@@ -49,7 +75,7 @@ function ShowDetails() {
                           <p>{episode.description}</p>
                           <audio controls>
                             <source
-                              src={episode.audioSrc}
+                              src={sanitizeUrl(episode.audioSrc)}
                               type="audio/mpeg"
                             />
                             Your browser does not support the audio element.
