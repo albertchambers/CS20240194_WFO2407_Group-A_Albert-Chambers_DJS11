@@ -1,10 +1,5 @@
 const BASE_URL = 'https://podcast-api.netlify.app';
 
-/**
- * Reusable fetch wrapper for API requests
- * @param endpoint API endpoint
- * @returns JSON response
- */
 const fetchApi = async (endpoint: string) => {
   try {
     const response = await fetch(`${BASE_URL}/${endpoint}`);

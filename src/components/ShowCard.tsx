@@ -1,4 +1,7 @@
-import React, { memo } from 'react';
+// ShowCard.tsx
+import React from 'react';
+import { Link } from 'react-router-dom'; // Import Link for navigation
+import AudioPlayer from './AudioPlayer'; // Assuming AudioPlayer is inside components
 
 type ShowPreview = {
   id: string;
@@ -9,14 +12,30 @@ type ShowPreview = {
   description: string;
 };
 
-const ShowCard: React.FC<{ show: ShowPreview }> = ({ show }) => (
-  <div className="podcast-card">
-    <img src={show.image} alt={show.title} className="podcast-image" loading="lazy" />
-    <div className="podcast-info">
-      <h3>{show.title}</h3>
-      <p>{show.description}</p>
-    </div>
-  </div>
-);
+interface ShowCardProps {
+  show: ShowPreview;
+}
 
-export default memo(ShowCard);
+const ShowCard: React.FC<ShowCardProps> = ({ show }) => {
+  return (
+    <div className="podcast-card">
+      <img src={show.image} alt={show.title} className="podcast-image" />
+      <div className="podcast-info">
+        <h3 className="podcast-title">
+          {/* Link to the individual show page */}
+          <Link to={`/show/${show.id}`} className="podcast-title">
+            {show.title}
+          </Link>
+        </h3>
+      </div>
+      {/* AudioPlayer component wrapped within the same card */}
+      <AudioPlayer
+        trackUrl="https://example.com/sample.mp3" // This can be dynamic based on the podcast
+        title={show.title}
+        artist={show.title} // Can be changed based on the show information
+      />
+    </div>
+  );
+};
+
+export default ShowCard;
