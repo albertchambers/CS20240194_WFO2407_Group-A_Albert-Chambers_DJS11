@@ -1,47 +1,13 @@
-interface Episode {
-  id: number;
-  title: string;
-  description: string;
-  duration: number;
-  audioSrc: string;
-}
+import { Show, Season, Episode } from '../types'; // Adjust the path as needed
 
-interface Season {
-  number: number;
-  title: string;
-  image: string;
-  episodes: Episode[];
-}
+export const fetchShowDetails = async (id: string): Promise<Show> => {
+  const response = await fetch(`https://podcast-api.netlify.app/id/${id}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch show details: ${response.status}`);
+  }
+  return response.json();
+};
 
-interface Show {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  seasons: Season[];
-}
-
-// Type definitions for raw API responses
-interface RawEpisode {
-  title: string;
-  description: string;
-  duration: number;
-  file: string;
-}
-
-interface RawSeason {
-  title: string;
-  image: string;
-  episodes: RawEpisode[];
-}
-
-interface RawShow {
-  id: string;
-  title: string;
-  description: string;
-  image: string;
-  seasons: RawSeason[];
-}
 
 // Base URL for the Podcast API
 const BASE_URL = 'https://podcast-api.netlify.app';
@@ -72,7 +38,7 @@ const fetchApi = async <T>(endpoint: string): Promise<T> => {
  * @returns A promise resolving to the list of podcast previews.
  */
 export const fetchPreviews = async (): Promise<Show[]> => {
-  const previews: RawShow[] = await fetchApi<RawShow[]>('shows');
+  const previews: Show[] = await fetchApi<Show[]>('shows');
   return previews.map((preview): Show => ({
     id: preview.id,
     title: preview.title,
@@ -89,23 +55,24 @@ export const fetchPreviews = async (): Promise<Show[]> => {
  * @returns A promise resolving to the detailed show object.
  */
 export const fetchShow = async (showId: string): Promise<Show> => {
-  const data: RawShow = await fetchApi<RawShow>(`id/${showId}`);
+  const data: Show = await fetchApi<Show>(`id/${showId}`);
   return {
     id: data.id,
     title: data.title,
     description: data.description,
     image: data.image,
-    seasons: data.seasons.map((season, seasonIndex): Season => ({
-      number: seasonIndex + 1,
+    seasons: data.seasons.map((season): Season => ({
+      number: season.number, // Use the raw value or adjust mapping as needed
       title: season.title,
       image: season.image,
-      episodes: season.episodes.map((episode, episodeIndex): Episode => ({
-        id: episodeIndex + 1,
+      episodes: season.episodes.map((episode): Episode => ({
+        id: episode.id, // Use API response ID if available
         title: episode.title,
         description: episode.description,
         duration: episode.duration,
-        audioSrc: episode.file,
+        audioSrc: episode.file || '', // Map `file` to `audioSrc`, provide fallback
       })),
     })),
   };
 };
+

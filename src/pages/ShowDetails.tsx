@@ -1,22 +1,26 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { Show } from '../types'; // Adjust the path as needed
 
 function ShowDetails() {
-  // State to store the podcast details
-  const [show, setShow] = useState(null);
-  const { id } = useParams(); // Get the 'id' from the URL params
+  const [show, setShow] = useState<Show | null>(null);
+  const { id } = useParams<{ id: string }>();
 
-  // Fetch the podcast details based on the ID
   useEffect(() => {
     fetch(`https://podcast-api.netlify.app/id/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setShow(data); // Store the podcast details in the state
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Failed to fetch show details: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data: Show) => {
+        setShow(data);
       })
       .catch((error) => {
         console.error('Error fetching show details:', error);
       });
-  }, [id]); // Run the effect whenever the 'id' changes
+  }, [id]);
 
   return (
     <div className="ShowDetails">
@@ -25,12 +29,10 @@ function ShowDetails() {
           <h1>{show.title}</h1>
           <p>{show.description}</p>
           <img src={show.image} alt={show.title} className="show-image" />
-
-          {/* Display seasons and episodes */}
           <div className="seasons">
             {show.seasons && show.seasons.length > 0 ? (
               show.seasons.map((season) => (
-                <div key={season.season} className="season">
+                <div key={season.number} className="season">
                   <h2>{season.title}</h2>
                   <img
                     src={season.image}
@@ -40,13 +42,16 @@ function ShowDetails() {
                   <div className="episodes">
                     {season.episodes && season.episodes.length > 0 ? (
                       season.episodes.map((episode) => (
-                        <div key={episode.episode} className="episode">
+                        <div key={episode.id} className="episode">
                           <h3>
-                            Episode {episode.episode}: {episode.title}
+                            Episode {episode.id}: {episode.title}
                           </h3>
                           <p>{episode.description}</p>
                           <audio controls>
-                            <source src={episode.file} type="audio/mpeg" />
+                            <source
+                              src={episode.audioSrc}
+                              type="audio/mpeg"
+                            />
                             Your browser does not support the audio element.
                           </audio>
                         </div>
