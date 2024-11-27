@@ -24,3 +24,20 @@ export interface Show {
   image: string;
   seasons: Season[];
 }
+
+type ShowPreview = {
+  id: string;
+  title: string;
+  image: string;
+  updated: string;
+  genres: string[];
+  description: string;
+};
+
+export interface ShowCardProps {
+  show: ShowPreview;
+}
+
+export interface ShowGridProps {
+  shows: ShowPreview[];
+}

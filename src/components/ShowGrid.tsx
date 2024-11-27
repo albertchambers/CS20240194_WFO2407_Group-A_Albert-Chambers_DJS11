@@ -1,19 +1,7 @@
 // ShowGrid.tsx
 import React from 'react';
 import ShowCard from './ShowCard'; // Import the ShowCard component
-
-type ShowPreview = {
-  id: string;
-  title: string;
-  image: string;
-  updated: string;
-  genres: string[];
-  description: string;
-};
-
-interface ShowGridProps {
-  shows: ShowPreview[];
-}
+import { ShowGridProps } from '../interface/types'
 
 const ShowGrid: React.FC<ShowGridProps> = ({ shows }) => {
   return (

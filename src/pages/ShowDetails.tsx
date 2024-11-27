@@ -1,13 +1,13 @@
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { Show } from '../interface/types'; // Adjust the path as needed
+import { Show } from '../interface/types';
 
 // Utility to sanitize URLs
 function sanitizeUrl(url: string): string {
   try {
     const sanitizedUrl = new URL(url);
 
-    // Allow only secure protocols and trusted domains
+    // Only allow HTTPS protocol and trusted domains
     const trustedDomains = ['podcast-api.netlify.app'];
     if (
       sanitizedUrl.protocol !== 'https:' ||
@@ -18,9 +18,9 @@ function sanitizeUrl(url: string): string {
     }
 
     return sanitizedUrl.href;
-  } catch {
-    console.warn('Invalid URL:', url);
-    return ''; // Return an empty string if URL parsing fails
+  } catch (error) {
+    console.warn('Invalid URL:', url, error);
+    return ''; // Return an empty string for invalid URLs
   }
 }
 
