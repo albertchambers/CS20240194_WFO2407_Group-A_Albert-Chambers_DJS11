@@ -1,4 +1,4 @@
-import { Show, Season, Episode } from '../interface/types'; // Adjust the path as needed
+import { Show, Season, Episode } from '../interface/types'; 
 
 export const fetchShowDetails = async (id: string): Promise<Show> => {
   const response = await fetch(`https://podcast-api.netlify.app/id/${id}`);
@@ -7,7 +7,6 @@ export const fetchShowDetails = async (id: string): Promise<Show> => {
   }
   return response.json();
 };
-
 
 // Base URL for the Podcast API
 const BASE_URL = 'https://podcast-api.netlify.app';
@@ -44,7 +43,8 @@ export const fetchPreviews = async (): Promise<Show[]> => {
     title: preview.title,
     description: preview.description,
     image: preview.image,
-    seasons: [], // Assuming previews don't include seasons; update if needed.
+    genre: preview.genre,
+    seasons: preview.seasons,
   }));
 };
 
@@ -61,12 +61,13 @@ export const fetchShow = async (showId: string): Promise<Show> => {
     title: data.title,
     description: data.description,
     image: data.image,
+    genre: data.genre || 'Unknown', // Provide a default value if genre is missing
     seasons: data.seasons.map((season): Season => ({
-      number: season.number, // Use the raw value or adjust mapping as needed
+      number: season.number,
       title: season.title,
       image: season.image,
       episodes: season.episodes.map((episode): Episode => ({
-        id: episode.id, // Use API response ID if available
+        id: episode.id,
         title: episode.title,
         description: episode.description,
         duration: episode.duration,
@@ -75,4 +76,5 @@ export const fetchShow = async (showId: string): Promise<Show> => {
     })),
   };
 };
+
 

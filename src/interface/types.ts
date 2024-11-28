@@ -21,6 +21,7 @@ export interface Show {
   title: string;
   description: string;
   image: string;
+  genre: string | number;
   seasons: Season[];
 }
 
@@ -29,7 +30,7 @@ type ShowPreview = {
   title: string;
   image: string;
   updated: string;
-  genres: string[];
+  genres: string[] | number;
   description: string;
 };
 
@@ -53,4 +54,8 @@ export interface PodcastPreview {
   title: string;
   description: string;
   image: string; // URL to the podcast's image
+}
+
+export interface GenreFilterProps {
+  onFilteredShowsChange: (shows: any[]) => void; // Callback to update filtered shows
 }
