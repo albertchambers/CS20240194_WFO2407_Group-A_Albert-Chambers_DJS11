@@ -1,7 +1,7 @@
-// HomePage.tsx (or About.tsx)
+// HomePage.tsx
+
 import { useState, useEffect } from 'react';
 import { fetchPreviews } from '../services/api';
-
 import ShowGrid from '../components/ShowGrid';
 
 function HomePage() {

@@ -1,9 +1,5 @@
 import React, { useRef, useState } from 'react';
-
-type AudioPlayerProps = {
-  src: string; // Audio file URL
-  title?: string; // Optional audio title for display
-};
+import { AudioPlayerProps } from '../interface/types';
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ src, title }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);

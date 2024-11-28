@@ -9,7 +9,6 @@ export interface Episode {
   file?: string;
 }
 
-
 export interface Season {
   number: number;
   title: string;
@@ -40,4 +39,18 @@ export interface ShowCardProps {
 
 export interface ShowGridProps {
   shows: ShowPreview[];
+}
+
+export interface AudioPlayerProps {
+  trackUrl: string;
+  title: string;
+  artist: string;
+  src?: string;
+}
+
+export interface PodcastPreview {
+  id: string;
+  title: string;
+  description: string;
+  image: string; // URL to the podcast's image
 }
